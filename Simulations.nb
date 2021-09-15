@@ -1,0 +1,3995 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    187796,       3987]
+NotebookOptionsPosition[    186345,       3952]
+NotebookOutlinePosition[    186775,       3968]
+CellTagsIndexPosition[    186732,       3965]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Clarifying the Relationship Between Faster-Than-Light Travel and Time Travel\
+\>", "Title",
+ CellChangeTimes->{
+  3.84013004505764*^9},ExpressionUUID->"5f33a557-d283-4187-a624-10aa79d3c60b"],
+
+Cell[CellGroupData[{
+
+Cell["Research Project, Summer 2021", "Subsection",
+ CellChangeTimes->{
+  3.8401302024162416`*^9},ExpressionUUID->"b601b100-65a8-40d1-9bd1-\
+9444bc8000c7"],
+
+Cell[TextData[{
+ StyleBox["Katie Curvelo",
+  FontWeight->"Bold"],
+ "\nMcMaster University"
+}], "Text",
+ CellChangeTimes->{{3.8401300691169524`*^9, 
+  3.840130081809346*^9}},ExpressionUUID->"5dfe06ba-ecce-4a43-87e3-\
+93cf8562e375"],
+
+Cell[TextData[{
+ "Supervisor:\n",
+ StyleBox["Prof. Barak Shoshany",
+  FontWeight->"Bold"],
+ "\nBrock University"
+}], "Text",
+ CellChangeTimes->{
+  3.8401300837381535`*^9},ExpressionUUID->"916dfc89-7837-4507-81c1-\
+f2f7738e7933"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Part 1: Simulation of Time Travel Using Accelerating Warp Drives\
+\>", "Section",
+ CellChangeTimes->{{3.840130121300635*^9, 
+  3.8401301517147913`*^9}},ExpressionUUID->"aa618ddd-17d8-420d-9d7b-\
+f02ea44bd575"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DynamicModule", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", "\n", "        ", 
+    RowBox[{
+     RowBox[{"ArrivalTime", "          ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"ArrowSize", "            ", "=", " ", "0.03"}], ",", "\n", 
+     "        ", 
+     RowBox[{"DiagramSize", "          ", "=", " ", "800"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureColor", "          ", "=", " ", "Yellow"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureOpacity", "        ", "=", " ", "0.3"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureShow", "           ", "=", " ", "False"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LabelMultiplier", "      ", "=", " ", "1.04"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LegendSize", "           ", "=", " ", "25"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LetterSize", "           ", "=", " ", "16"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeColor", "       ", "=", " ", "Pink"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeOpacity", "     ", "=", " ", "0.3"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeShow", "        ", "=", " ", "False"}], ",", "\n", 
+     "        ", "PadNumber", ",", "\n", "        ", 
+     RowBox[{"Path1V", "               ", "=", " ", "1.6"}], ",", "\n", 
+     "        ", 
+     RowBox[{"Path2V", "               ", "=", " ", "1.5"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeAngle", "          ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeRotationMatrix", " ", "=", " ", 
+      RowBox[{"RotationMatrix", "[", "0", "]"}]}], ",", "\n", "        ", 
+     RowBox[{"SPrimeT", "              ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeV", "              ", "=", " ", "0.7"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeX", "              ", "=", " ", "1"}], ",", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{"a", "   ", "=", " ", "1.1"}], ",", "\n", "        ", 
+     RowBox[{"TachyonColor", "         ", "=", " ", "Blue"}], ",", "\n", 
+     "        ", 
+     RowBox[{"TachyonShow", "          ", "=", " ", "True"}], ",", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{"DiagramRange", "         ", "=", " ", "10"}], ",", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{"T", " ", "=", "0"}], ",", "\[IndentingNewLine]", "   ", 
+     RowBox[{"mina", "=", "1"}], ",", "\n", "        ", 
+     "UpdateDiagramRange"}], "\n", "    ", "}"}], ",", "\n", "    ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"UpdateDiagramRange", "[", "]"}], " ", ":=", " ", 
+     RowBox[{"(", "\n", "        ", 
+      RowBox[{
+       RowBox[{"DiagramRange", " ", "=", 
+        RowBox[{"Max", "[", " ", 
+         RowBox[{
+          RowBox[{"2", "a", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"2", "SPrimeV"}], "+", 
+                 RowBox[{"2", 
+                  RowBox[{"Sqrt", "[", 
+                   RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+               "a"}], ")"}], "^", "2"}], "/", "4"}]}], ",", 
+          RowBox[{"2", 
+           RowBox[{"(", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "SPrimeV"}], " ", "SPrimeX"}], " ", "+", 
+              RowBox[{"2", 
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"1", "-", 
+                 RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"SPrimeV", "+", 
+                  RowBox[{
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                   RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                  RowBox[{"Sqrt", "[", 
+                   RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                   "]"}]}], ")"}], "/", "a"}]}]}], ")"}], ")"}]}]}], "]"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"ArrivalTime", " ", "=", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", "SPrimeV"}], " ", "SPrimeX"}], " ", "+", 
+          RowBox[{"2", 
+           RowBox[{"Sqrt", "[", 
+            RowBox[{"1", "-", 
+             RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"SPrimeV", "+", 
+              RowBox[{
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"1", "-", 
+                 RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+               RowBox[{"(", 
+                RowBox[{"SPrimeV", "+", 
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{
+                   RowBox[{"SPrimeV", "^", "2"}], "+", 
+                   RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{
+                RowBox[{"SPrimeV", "^", "2"}], "+", 
+                RowBox[{
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"2", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                   RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+               "]"}]}], ")"}], "/", "a"}]}]}], ")"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"T", "=", 
+        RowBox[{"Solve", "[", 
+         RowBox[{
+          RowBox[{"0", "==", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"-", "SPrimeV"}], " ", "SPrimeX"}], " ", "+", 
+             RowBox[{"2", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{"1", "-", 
+                RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"SPrimeV", "+", 
+                 RowBox[{
+                  RowBox[{"Sqrt", "[", 
+                   RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                  RowBox[{"(", 
+                   RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"b", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{
+                   RowBox[{"SPrimeV", "^", "2"}], "+", 
+                   RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"b", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"b", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                  "]"}]}], ")"}], "/", "b"}]}]}], ")"}]}], ",", "b"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"mina", "=", 
+        RowBox[{"b", "/.", 
+         RowBox[{"T", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}]}], ";"}], "\n", "    ", ")"}]}], 
+    ";", "\n", "    ", 
+    RowBox[{
+     RowBox[{"PadNumber", "[", "n_", "]"}], " ", ":=", " ", 
+     RowBox[{"PaddedForm", "[", 
+      RowBox[{
+       RowBox[{"N", "[", "n", "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", " ", "2"}], "}"}], ",", " ", 
+       RowBox[{"NumberPadding", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<\>\"", ",", " ", "\"\<0\>\""}], "}"}]}], ",", " ", 
+       RowBox[{"NumberSigns", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<-\>\"", ",", " ", "\"\<+\>\""}], "}"}]}]}], "]"}]}], 
+    ";", "\n", "    ", 
+    RowBox[{"Column", "[", "\n", "        ", 
+     RowBox[{
+      RowBox[{"{", "\n", "            ", 
+       RowBox[{
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+          "\"\<S' frame velocity: \>\"", ",", "\n", "                ", 
+           RowBox[{"Slider", "[", "\n", "                    ", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "\n", "                        ", 
+              RowBox[{"SPrimeV", ",", "\n", "                        ", 
+               RowBox[{
+                RowBox[{"(", "\n", "                            ", 
+                 RowBox[{
+                  RowBox[{"SPrimeV", " ", "=", " ", "#1"}], ";", "\n", 
+                  "                            ", 
+                  RowBox[{"SPrimeAngle", " ", "=", " ", 
+                   RowBox[{"ArcTan", "[", "SPrimeV", "]"}]}], ";", "\n", 
+                  "                            ", 
+                  RowBox[{"SPrimeRotationMatrix", " ", "=", " ", 
+                   RowBox[{"RotationMatrix", "[", "SPrimeAngle", "]"}]}], ";",
+                   "\n", "                            ", 
+                  RowBox[{"UpdateDiagramRange", "[", "]"}], ";", 
+                  "\[IndentingNewLine]", "      ", 
+                  RowBox[{"a", "=", 
+                   RowBox[{"Min", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{"10", "mina"}]}], "]"}]}], ";"}], "\n", 
+                 "                        ", ")"}], " ", "&"}]}], "\n", 
+              "                    ", "]"}], ",", "\n", 
+             "                    ", 
+             RowBox[{"{", 
+              RowBox[{"0.001", ",", " ", "0.999"}], "}"}]}], "\n", 
+            "                ", "]"}], ",", "\n", "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeV", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<c\>\""}], "\n", "            ", "}"}], 
+         "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Acceleration of the warp drive: \>\"", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Slider", "[", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "\[IndentingNewLine]", 
+              RowBox[{"a", ",", 
+               RowBox[{
+                RowBox[{"(", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"a", "=", "#1"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"UpdateDiagramRange", "[", "]"}], ";"}], 
+                 "\[IndentingNewLine]", ")"}], "&"}]}], "\[IndentingNewLine]",
+               "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"{", 
+               RowBox[{"0.001", ",", 
+                RowBox[{"10", "mina"}]}], "}"}], "]"}]}], 
+            "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "a", "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           "\"\<\!\(\*SuperscriptBox[\(s\), \(-1\)]\)\>\""}], 
+          "\[IndentingNewLine]", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"LightConeColor", ",", " ", 
+               RowBox[{"Rectangle", "[", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"ImageSize", " ", "->", " ", "LegendSize"}]}], "]"}], 
+           ",", "\n", "                ", "\"\< = Light cones \>\"", ",", 
+           "\n", "                ", 
+           RowBox[{"Checkbox", "[", 
+            RowBox[{"Dynamic", "[", "LightConeShow", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<     \>\"", ",", "\n", "                ", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"FutureColor", ",", " ", 
+               RowBox[{"Rectangle", "[", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"ImageSize", " ", "->", " ", "LegendSize"}]}], "]"}], 
+           ",", "\n", "                ", "\"\< = Future regions \>\"", ",", 
+           " ", 
+           RowBox[{"Checkbox", "[", 
+            RowBox[{"Dynamic", "[", "FutureShow", "]"}], "]"}]}], "\n", 
+          "            ", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+          "\"\<S' coordinates: (t = \>\"", ",", "\n", "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeT", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<, x = \>\"", ",", "\n", 
+           "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeX", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<)     Arrival time: \>\"", ",", "\n", 
+           "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "ArrivalTime", "]"}], "]"}]}], "\n", 
+          "            ", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{"Show", "[", 
+          RowBox[{
+           RowBox[{"Graphics", "[", "\n", "                ", 
+            RowBox[{
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"PointSize", "[", "0.01", "]"}], ",", 
+                 RowBox[{"Point", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "SPrimeV"}], " ", "SPrimeX"}], " ", "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    "]"}]}], ")"}], "/", "a"}]}]}], ")"}]}], "}"}], ",", 
+                   RowBox[{"VertexColors", "->", "Green"}]}], "]"}], ",", 
+                 RowBox[{"Point", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}], "+", 
+                    RowBox[{"2", "SPrimeV", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                    "a"}], ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                    "a"}]}], "}"}], "]"}]}], "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{"Black", ",", "\n", "                        ", 
+                 RowBox[{"Arrowheads", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "ArrowSize"}], ",", " ", "ArrowSize"}], 
+                   "}"}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}], 
+                    ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}], "}"}], 
+                  "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "DiagramRange"}], "}"}]}], "}"}], 
+                  "]"}]}], "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<x\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    "DiagramRange", " ", "*", " ", "LabelMultiplier"}], ",", 
+                    " ", "0"}], "}"}]}], "\n", "                        ", 
+                  "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<t\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{
+                    "DiagramRange", " ", "*", " ", "LabelMultiplier"}]}], 
+                    "}"}]}], "\n", "                        ", "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"LightConeShow", ",", " ", "1", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", "Red",
+                  ",", "\n", "                        ", "Dashed", ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", "  ", "DiagramRange"}], 
+                    "}"}]}], "}"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", "  ", 
+                    "DiagramRange"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}], "}"}], "]"}]}], 
+                "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                "LightConeColor", ",", "\n", "                        ", 
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "LightConeShow", ",", " ", "LightConeOpacity", ",", " ", 
+                    "0"}], "]"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}], "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", "  ", 
+                    "DiagramRange"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", "  ", "DiagramRange"}], 
+                    "}"}]}], "}"}], "]"}]}], "\n", "                    ", 
+                "}"}], ",", "\n", "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{"Black", ",", "\n", "                        ", 
+                 RowBox[{"Arrowheads", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "ArrowSize"}], ",", " ", "ArrowSize"}], 
+                   "}"}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}]}]}],
+                     ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}]}], 
+                   "\n", "                        ", "}"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}]}], ",", "\n", 
+                    "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "  ", "DiagramRange"}], "}"}]}]}]}], 
+                   "\n", "                        ", "}"}], "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<x'\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}], ")"}],
+                     " ", "*", " ", "LabelMultiplier"}]}], "\n", 
+                  "                        ", "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<t'\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "DiagramRange"}], "}"}]}]}], ")"}],
+                     " ", "*", " ", "LabelMultiplier"}]}], "\n", 
+                  "                        ", "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"LightConeShow", ",", " ", "1", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", "Red",
+                  ",", "\n", "                        ", "Dashed", ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}]}],
+                 "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                "LightConeColor", ",", "\n", "                        ", 
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "LightConeShow", ",", " ", "LightConeOpacity", ",", " ", 
+                    "0"}], "]"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}]}],
+                 "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Text", "[", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Style", "[", 
+                  RowBox[{"\"\<S\>\"", ",", " ", 
+                   RowBox[{"FontSize", " ", "->", " ", 
+                    RowBox[{"1.5", " ", "LetterSize"}]}]}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"0.05", " ", "*", " ", "DiagramRange", " ", "*", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}]}], "\n", 
+                "                    ", "]"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Text", "[", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Style", "[", 
+                  RowBox[{"\"\<S'\>\"", ",", " ", 
+                   RowBox[{"FontSize", " ", "->", " ", 
+                    RowBox[{"1.5", " ", "LetterSize"}]}]}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{
+                  RowBox[{
+                  "0.05", " ", "*", " ", "DiagramRange", " ", "*", " ", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}], " ", "+", 
+                  " ", 
+                  RowBox[{"{", 
+                   RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}]}]}], "\n", 
+                "                    ", "]"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "FutureShow", ",", " ", "FutureOpacity", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", 
+                 "FutureColor", ",", "\n", "                        ", 
+                 RowBox[{"Rectangle", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}], 
+                   ",", " ", 
+                   RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "DiagramRange"}], 
+                    "}"}]}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}]}]}],
+                     ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "DiagramRange"}], 
+                    "}"}]}]}], ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "DiagramRange"}],
+                     "}"}]}]}]}], "\n", "                        ", "}"}], 
+                  "]"}]}], "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Locator", "[", "\n", "                        ", 
+                RowBox[{
+                "Dynamic", "[", "\n", "                            ", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", "\n",
+                   "                            ", 
+                  RowBox[{
+                   RowBox[{"(", "\n", "                                ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "=",
+                     " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", " ", "0"}], "}"}]}], 
+                    ";", "\n", "                                ", 
+                    RowBox[{"Path1V", " ", "=", " ", 
+                    RowBox[{"Quiet", "[", 
+                    RowBox[{"SPrimeX", " ", "/", " ", "SPrimeT"}], "]"}]}], 
+                    ";", "\n", "                                ", 
+                    RowBox[{"UpdateDiagramRange", "[", "]"}], ";", 
+                    "\[IndentingNewLine]", "      ", 
+                    RowBox[{"a", "=", 
+                    RowBox[{"Min", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{"10", "mina"}]}], "]"}]}], ";"}], "\n", 
+                    "                            ", ")"}], " ", "&"}]}], "\n",
+                  "                        ", "]"}], "\n", 
+                "                    ", "]"}]}], "\n", "                ", 
+              "}"}], ",", "\n", "                ", 
+             RowBox[{"ImageSize", " ", "->", " ", 
+              RowBox[{"{", 
+               RowBox[{"DiagramSize", ",", " ", "DiagramSize"}], "}"}]}]}], 
+            "\n", "            ", "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+            "First", " ", "half", " ", "of", " ", "first", " ", "path"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"ContourPlot", "[", 
+            RowBox[{
+             RowBox[{"x", "==", 
+              RowBox[{"a", " ", 
+               RowBox[{
+                RowBox[{"t", "^", "2"}], "/", "2"}]}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "0", ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"2", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "+", 
+                  RowBox[{"a", " ", "SPrimeX"}], "+", 
+                  RowBox[{"2", "SPrimeV", " ", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                RowBox[{"(", 
+                 RowBox[{"2", "a"}], ")"}]}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"SPrimeV", "+", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], ")"}], "^", 
+                   RowBox[{"(", 
+                    RowBox[{"1", "/", "2"}], ")"}]}]}], ")"}], "/", "a"}]}], 
+              "}"}], ",", 
+             RowBox[{"MaxRecursion", "->", "3"}], ",", 
+             RowBox[{"ContourStyle", "->", "Red"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+            "Second", " ", "half", " ", "of", " ", "first", " ", "path"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"ContourPlot", "[", 
+            RowBox[{
+             RowBox[{"x", "==", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"-", "a"}], " ", 
+                RowBox[{
+                 RowBox[{"t", "^", "2"}], "/", "2"}]}], "+", 
+               RowBox[{"2", "SPrimeV", " ", "t"}], "-", 
+               RowBox[{"2", 
+                RowBox[{
+                 RowBox[{"SPrimeV", "^", "2"}], "/", "a"}]}], "-", "SPrimeX", 
+               "+", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"2", "t"}], "-", 
+                  RowBox[{"2", 
+                   RowBox[{"SPrimeV", "/", "a"}]}]}], ")"}], 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"SPrimeV", "^", "2"}], "+", 
+                   RowBox[{"a", " ", "SPrimeX"}]}], ")"}], "^", 
+                 RowBox[{"(", 
+                  RowBox[{"1", "/", "2"}], ")"}]}]}]}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"2", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "+", 
+                  RowBox[{"a", " ", "SPrimeX"}], "+", 
+                  RowBox[{"2", "SPrimeV", " ", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                RowBox[{"(", 
+                 RowBox[{"2", "a"}], ")"}]}], ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"2", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "+", 
+                  RowBox[{"a", " ", "SPrimeX"}], "+", 
+                  RowBox[{"2", "SPrimeV", " ", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                "a"}]}], "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"SPrimeV", "+", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], ")"}], "^", 
+                   RowBox[{"(", 
+                    RowBox[{"1", "/", "2"}], ")"}]}]}], ")"}], "/", "a"}], 
+               ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"2", "SPrimeV"}], "+", 
+                  RowBox[{"2", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                "a"}]}], "}"}], ",", 
+             RowBox[{"MaxRecursion", "->", "3"}], ",", 
+             RowBox[{"ContourStyle", "->", "Red"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+            "First", " ", "half", " ", "of", " ", "return", " ", "path"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", "     ", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", 
+                RowBox[{"(", 
+                 RowBox[{"x", "-", "SPrimeX", "-", 
+                  RowBox[{"SPrimeV", " ", "t"}]}], ")"}]}], "/", 
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"1", "-", 
+                 RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "==", 
+              RowBox[{"a", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"t", "-", 
+                    RowBox[{"SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX"}], ")"}]}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "-", 
+                   RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], ")"}], "^", "2"}], "/", "2"}]}]}], ",", 
+             
+             RowBox[{"{", 
+              RowBox[{"x", ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "2"}], 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "/", "a"}]}], "-", 
+                    RowBox[{"2", "SPrimeV", " ", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], 
+                    ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}], "/", 
+                    "a"}]}], "-", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], "-", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}], "/", 
+                    "2"}], "+", 
+                   RowBox[{"SPrimeV", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}]}]}], 
+                    ")"}], "/", "a"}], ")"}], "/", "2"}]}], "+", 
+                   RowBox[{"SPrimeV", "  ", "2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}]}], ")"}], "/", 
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", "SPrimeX"}],
+                ",", "50"}], "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", 
+               RowBox[{
+                RowBox[{"SPrimeV", " ", "x"}], "-", 
+                RowBox[{"SPrimeV", " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}], "+", 
+                    RowBox[{"2", "SPrimeV", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                   "a"}], ")"}]}], "+", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"2", "SPrimeV"}], "+", 
+                   RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}]}], ")"}], "/", 
+                 "a"}]}], ",", "10"}], "}"}], ",", 
+             RowBox[{"MaxRecursion", "->", "3"}]}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{
+            "Second", " ", "half", " ", "of", " ", "return", " ", "path"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", "    ", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", 
+                RowBox[{"(", 
+                 RowBox[{"x", "-", "SPrimeX", "-", 
+                  RowBox[{"SPrimeV", " ", "t"}]}], ")"}]}], "/", 
+               RowBox[{"Sqrt", "[", 
+                RowBox[{"1", "-", 
+                 RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "==", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"-", "a"}], 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"t", "-", 
+                    RowBox[{"SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX"}], ")"}]}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "-", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], ")"}], "^", "2"}], "/", "2"}]}], "+", 
+               RowBox[{"a", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"t", "-", 
+                    RowBox[{"SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX"}], ")"}]}]}], ")"}], "/", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "-", 
+                  RowBox[{"(", 
+                   RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], ")"}], 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"2", "SPrimeV"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}]}]}], 
+                   ")"}], "/", "a"}], ")"}]}], "-", 
+               RowBox[{"a", " ", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}]}]}], 
+                    ")"}], "/", "a"}], ")"}], "^", "2"}], "/", "4"}]}]}]}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", 
+               RowBox[{"-", "5"}], ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "2"}], 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "/", "a"}]}], "-", 
+                    RowBox[{"2", "SPrimeV", " ", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], 
+                    ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}], "/", 
+                    "a"}]}], "-", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], ")"}]}], "-", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}], "/", 
+                    "2"}], "+", 
+                   RowBox[{"SPrimeV", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], "]"}]}]}], 
+                    ")"}], "/", "a"}], ")"}], "/", "2"}]}], "+", 
+                   RowBox[{"SPrimeV", "  ", "2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}], "/", 
+                    "a"}]}]}], ")"}], "/", 
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", 
+                "SPrimeX"}]}], "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", 
+               RowBox[{"-", "10"}], ",", 
+               RowBox[{
+                RowBox[{"SPrimeV", " ", "x"}], "+", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"-", "SPrimeV"}], " ", "SPrimeX"}], " ", "+", 
+                  RowBox[{"2", 
+                   RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"2", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"SPrimeV", "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", "^", "2"}], "+", 
+                    RowBox[{"a", " ", "SPrimeX"}]}], "]"}]}], ")"}]}], "+", 
+                    RowBox[{"a", " ", "SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    "]"}]}], ")"}], "/", "a"}]}]}], ")"}]}]}], "}"}], ",", 
+             RowBox[{"MaxRecursion", "->", "3"}]}], "]"}]}], 
+          "\[IndentingNewLine]", "]"}], "]"}]}], "\n", "        ", "}"}], ",",
+       "\n", "        ", 
+      RowBox[{"Alignment", " ", "->", " ", "Center"}]}], "\n", "    ", 
+     "]"}]}]}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.838193272122017*^9, 3.8381933176112127`*^9}, {
+   3.838193367136166*^9, 3.838193385991379*^9}, 3.838193419247632*^9, {
+   3.838193453645197*^9, 3.838193481922352*^9}, {3.838193838329636*^9, 
+   3.838193939332428*^9}, {3.838195183989564*^9, 3.838195187652423*^9}, {
+   3.838195224532216*^9, 3.838195242345542*^9}, {3.8381953311662273`*^9, 
+   3.838195421089859*^9}, 3.8381954901557407`*^9, {3.838195527951186*^9, 
+   3.838195564675687*^9}, {3.838195610292028*^9, 3.838195610561729*^9}, {
+   3.838195952077578*^9, 3.838195970116836*^9}, {3.838196095621641*^9, 
+   3.838196141897543*^9}, {3.8381961747362013`*^9, 3.838196572775074*^9}, {
+   3.838196618054821*^9, 3.8381966205249243`*^9}, {3.838203596929285*^9, 
+   3.838203720788492*^9}, {3.838203761802052*^9, 3.8382037715234013`*^9}, {
+   3.838203831444368*^9, 3.838203876533905*^9}, {3.838204447317134*^9, 
+   3.838204451668548*^9}, {3.838204511434024*^9, 3.838204535712614*^9}, {
+   3.838204582527121*^9, 3.838204633612781*^9}, 3.838204776785067*^9, {
+   3.838204819668391*^9, 3.8382048557785683`*^9}, {3.8382049782784023`*^9, 
+   3.8382049792862387`*^9}, {3.838205020059515*^9, 3.838205096962983*^9}, {
+   3.8382054006209784`*^9, 3.838205462867304*^9}, 3.83820632521881*^9, {
+   3.838213256557763*^9, 3.838213262377995*^9}, {3.838219379718461*^9, 
+   3.838219715883154*^9}, {3.8382197533387203`*^9, 3.838219779691935*^9}, {
+   3.838219975370594*^9, 3.838220050468172*^9}, {3.838220142709166*^9, 
+   3.838220183974689*^9}, {3.838220236796145*^9, 3.838220271562408*^9}, {
+   3.838220306433847*^9, 3.838220309826262*^9}, {3.838220374888956*^9, 
+   3.8382203882009153`*^9}, {3.838220482672065*^9, 3.83822060892358*^9}, {
+   3.838220655298568*^9, 3.8382207493875513`*^9}, {3.83822082379221*^9, 
+   3.8382209060043592`*^9}, {3.8382209882639503`*^9, 
+   3.8382210321927557`*^9}, {3.838221132331702*^9, 3.838221152784574*^9}, {
+   3.838222593770438*^9, 3.838222628552741*^9}, {3.838291603345975*^9, 
+   3.8382916168553953`*^9}, {3.838291648256447*^9, 3.838291674327898*^9}, {
+   3.838292198257813*^9, 3.8382922136065683`*^9}, {3.838292400527549*^9, 
+   3.838292494114167*^9}, {3.8382925935118637`*^9, 3.838292646491466*^9}, {
+   3.8382929692479467`*^9, 3.838293000212915*^9}, 3.8382931197020683`*^9, {
+   3.838302325505767*^9, 3.83830233462422*^9}, {3.838907855415086*^9, 
+   3.838907867415209*^9}, {3.8389079277788143`*^9, 3.838907989387888*^9}, {
+   3.838908073062677*^9, 3.838908087653228*^9}, {3.838908326515326*^9, 
+   3.838908340525857*^9}, {3.8389084282246933`*^9, 3.838908435486985*^9}, {
+   3.838909392301531*^9, 3.838909393554503*^9}, {3.838911797033834*^9, 
+   3.8389118420696774`*^9}, {3.838911884563773*^9, 3.8389119280673437`*^9}, {
+   3.8389120093053493`*^9, 3.838912009582241*^9}, {3.838912855177567*^9, 
+   3.838912897756054*^9}, {3.838912938639488*^9, 3.8389129448262663`*^9}, {
+   3.838913226237377*^9, 3.838913250392499*^9}, 3.838923007378804*^9, {
+   3.8389356487128763`*^9, 3.838935673848328*^9}, {3.839491126137637*^9, 
+   3.839491143539647*^9}, {3.839491193761639*^9, 3.839491198658964*^9}, {
+   3.839496718197137*^9, 3.839496794031149*^9}, {3.839513410037114*^9, 
+   3.8395134122541847`*^9}, {3.839513444555869*^9, 3.839513448674308*^9}, {
+   3.839513678627543*^9, 3.83951368012031*^9}, {3.83967627640117*^9, 
+   3.8396762955727043`*^9}, {3.839676325664406*^9, 3.839676342293818*^9}, {
+   3.8396766448595247`*^9, 3.839676651282373*^9}, {3.839676938068405*^9, 
+   3.8396769957130632`*^9}, {3.8396770742388678`*^9, 3.839677158386408*^9}, {
+   3.839677505750029*^9, 3.839677550467327*^9}, {3.839677587123621*^9, 
+   3.8396776095735617`*^9}, {3.839677712592449*^9, 3.8396777195565023`*^9}, {
+   3.839677781267144*^9, 3.839677781521214*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"100c9c05-3f57-4c38-9e1a-baaf1e4c0005"],
+
+Cell[BoxData[
+ DynamicModuleBox[{$CellContext`ArrivalTime$$ = 0, $CellContext`ArrowSize$$ = 
+  0.03, $CellContext`DiagramSize$$ = 800, $CellContext`FutureColor$$ = 
+  RGBColor[1, 1, 0], $CellContext`FutureOpacity$$ = 
+  0.3, $CellContext`FutureShow$$ = False, $CellContext`LabelMultiplier$$ = 
+  1.04, $CellContext`LegendSize$$ = 25, $CellContext`LetterSize$$ = 
+  16, $CellContext`LightConeColor$$ = RGBColor[
+  1, 0.5, 0.5], $CellContext`LightConeOpacity$$ = 
+  0.3, $CellContext`LightConeShow$$ = 
+  False, $CellContext`PadNumber$$, $CellContext`Path1V$$ = 
+  1.6, $CellContext`Path2V$$ = 1.5, $CellContext`SPrimeAngle$$ = 
+  0, $CellContext`SPrimeRotationMatrix$$ = {{1, 0}, {0, 
+  1}}, $CellContext`SPrimeT$$ = 0, $CellContext`SPrimeV$$ = 
+  0.7, $CellContext`SPrimeX$$ = 1, $CellContext`a$$ = 
+  1.1, $CellContext`TachyonColor$$ = RGBColor[
+  0, 0, 1], $CellContext`TachyonShow$$ = True, $CellContext`DiagramRange$$ = 
+  10, $CellContext`T$$ = 0, $CellContext`mina$$ = 
+  1, $CellContext`UpdateDiagramRange$$}, 
+  TagBox[GridBox[{
+     {
+      TemplateBox[{"\"S' frame velocity: \"", 
+        SliderBox[
+         Dynamic[$CellContext`SPrimeV$$, ($CellContext`SPrimeV$$ = #; \
+$CellContext`SPrimeAngle$$ = 
+           ArcTan[$CellContext`SPrimeV$$]; \
+$CellContext`SPrimeRotationMatrix$$ = 
+           RotationMatrix[$CellContext`SPrimeAngle$$]; \
+$CellContext`UpdateDiagramRange$$[]; $CellContext`a$$ = 
+           Min[$CellContext`a$$, 10 $CellContext`mina$$]; Null)& ], {0.001, 
+         0.999}], 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeV$$], StandardForm]], 
+        "\"c\""},
+       "RowDefault"]},
+     {
+      TemplateBox[{"\"Acceleration of the warp drive: \"", 
+        SliderBox[
+         Dynamic[$CellContext`a$$, ($CellContext`a$$ = #; \
+$CellContext`UpdateDiagramRange$$[]; Null)& ], 
+         Dynamic[{0.001, 10 $CellContext`mina$$}]], 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`a$$], StandardForm]], 
+        "\"\\!\\(\\*SuperscriptBox[\\(s\\), \\(-1\\)]\\)\""},
+       "RowDefault"]},
+     {
+      TemplateBox[{
+        GraphicsBox[{
+          RGBColor[1, 0.5, 0.5], 
+          RectangleBox[{0, 0}]}, ImageSize -> 25], "\" = Light cones \"", 
+        CheckboxBox[
+         Dynamic[$CellContext`LightConeShow$$]], "\"     \"", 
+        GraphicsBox[{
+          RGBColor[1, 1, 0], 
+          RectangleBox[{0, 0}]}, ImageSize -> 25], "\" = Future regions \"", 
+        CheckboxBox[
+         Dynamic[$CellContext`FutureShow$$]]},
+       "RowDefault"]},
+     {
+      TemplateBox[{"\"S' coordinates: (t = \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeT$$], StandardForm]], 
+        "\", x = \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeX$$], StandardForm]], 
+        "\")     Arrival time: \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`ArrivalTime$$], 
+          StandardForm]]},
+       "RowDefault"]},
+     {
+      DynamicBox[ToBoxes[
+        Show[
+         Graphics[{{
+            PointSize[0.01], 
+            
+            Point[{0, (-$CellContext`SPrimeV$$) $CellContext`SPrimeX$$ + 
+              2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] ($CellContext`SPrimeV$$ + 
+                   Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + 
+                 Sqrt[$CellContext`SPrimeV$$^2 + 
+                   Sqrt[1 - $CellContext`SPrimeV$$^2] (
+                    2 $CellContext`SPrimeV$$ ($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/$CellContext`a$$)}, 
+             VertexColors -> Green], 
+            
+            Point[{(2 $CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$ + 
+               2 $CellContext`SPrimeV$$ 
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$, (2 $CellContext`SPrimeV$$ + 
+               2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$}]}, {Black, 
+            Arrowheads[{-$CellContext`ArrowSize$$, $CellContext`ArrowSize$$}], 
+            
+            Arrow[{{-$CellContext`DiagramRange$$, 
+               0}, {$CellContext`DiagramRange$$, 0}}], 
+            
+            Arrow[{{0, -$CellContext`DiagramRange$$}, {
+              0, $CellContext`DiagramRange$$}}]}, {
+            Text[
+             Style[
+             "x", FontSize -> $CellContext`LetterSize$$], \
+{$CellContext`DiagramRange$$ $CellContext`LabelMultiplier$$, 0}], 
+            Text[
+             Style["t", FontSize -> $CellContext`LetterSize$$], {
+             0, $CellContext`DiagramRange$$ \
+$CellContext`LabelMultiplier$$}]}, {
+            Opacity[
+             If[$CellContext`LightConeShow$$, 1, 0]], Red, Dashed, 
+            
+            Line[{{-$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}, {$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}}], 
+            
+            Line[{{-$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}, {$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}}]}, {$CellContext`LightConeColor$$, 
+            Opacity[
+             
+             If[$CellContext`LightConeShow$$, $CellContext`LightConeOpacity$$,
+               0]], 
+            
+            Triangle[{{-$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}, {0, 
+              0}, {$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}}], 
+            
+            Triangle[{{-$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}, {0, 
+              0}, {$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}}]}, {Black, 
+            Arrowheads[{-$CellContext`ArrowSize$$, $CellContext`ArrowSize$$}], 
+            
+            Arrow[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 0}]}], 
+            Arrow[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, -$CellContext`DiagramRange$$}], {$CellContext`SPrimeX$$, \
+$CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, $CellContext`DiagramRange$$}]}]}, {
+            Text[
+             Style[
+             "x'", FontSize -> $CellContext`LetterSize$$], \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 0}]) $CellContext`LabelMultiplier$$], 
+            Text[
+             Style[
+             "t'", FontSize -> $CellContext`LetterSize$$], \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, $CellContext`DiagramRange$$}]) \
+$CellContext`LabelMultiplier$$]}, {
+            Opacity[
+             If[$CellContext`LightConeShow$$, 1, 0]], Red, Dashed, 
+            
+            Line[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ - $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$ + $CellContext`DiagramRange$$, $CellContext`SPrimeT$$ + \
+$CellContext`DiagramRange$$}}], 
+            
+            Line[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ + $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$ + $CellContext`DiagramRange$$, $CellContext`SPrimeT$$ - \
+$CellContext`DiagramRange$$}}]}, {$CellContext`LightConeColor$$, 
+            Opacity[
+             
+             If[$CellContext`LightConeShow$$, $CellContext`LightConeOpacity$$,
+               0]], 
+            
+            Triangle[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ - $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, {$CellContext`SPrimeX$$ + \
+$CellContext`DiagramRange$$, $CellContext`SPrimeT$$ - \
+$CellContext`DiagramRange$$}}], 
+            
+            Triangle[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ + $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, {$CellContext`SPrimeX$$ + \
+$CellContext`DiagramRange$$, $CellContext`SPrimeT$$ + \
+$CellContext`DiagramRange$$}}]}, 
+           Text[
+            Style["S", FontSize -> 1.5 $CellContext`LetterSize$$], 
+            0.05 $CellContext`DiagramRange$$ {-1, 1}], 
+           Text[
+            Style["S'", FontSize -> 1.5 $CellContext`LetterSize$$], 
+            0.05 $CellContext`DiagramRange$$ {-1, 
+              1} + {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}], {
+            Opacity[
+             
+             If[$CellContext`FutureShow$$, $CellContext`FutureOpacity$$, 
+              0]], $CellContext`FutureColor$$, 
+            
+            Rectangle[{-$CellContext`DiagramRange$$, 
+              0}, {$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}], 
+            
+            Polygon[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}], \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}]}]}, 
+           Locator[
+            
+            Dynamic[{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} = {
+                Part[#, 1], 0}; $CellContext`Path1V$$ = 
+              Quiet[$CellContext`SPrimeX$$/$CellContext`SPrimeT$$]; \
+$CellContext`UpdateDiagramRange$$[]; $CellContext`a$$ = 
+              Min[$CellContext`a$$, 10 $CellContext`mina$$]; Null)& ]]}, 
+          ImageSize -> {$CellContext`DiagramSize$$, \
+$CellContext`DiagramSize$$}], 
+         ContourPlot[$CellContext`x == $CellContext`a$$ ($CellContext`t^2/
+            2), {$CellContext`x, 
+           0, (2 $CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$ + 
+            2 $CellContext`SPrimeV$$ 
+             Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/(2 $CellContext`a$$)}, {$CellContext`t, 
+           0, ($CellContext`SPrimeV$$ + ($CellContext`SPrimeV$$^2 + \
+$CellContext`a$$ $CellContext`SPrimeX$$)^(1/2))/$CellContext`a$$}, 
+          MaxRecursion -> 3, ContourStyle -> Red], 
+         ContourPlot[$CellContext`x == (-$CellContext`a$$) ($CellContext`t^2/
+             2) + 2 $CellContext`SPrimeV$$ $CellContext`t - 
+           2 ($CellContext`SPrimeV$$^2/$CellContext`a$$) - \
+$CellContext`SPrimeX$$ + (2 $CellContext`t - 
+             2 ($CellContext`SPrimeV$$/$CellContext`a$$)) \
+($CellContext`SPrimeV$$^2 + $CellContext`a$$ $CellContext`SPrimeX$$)^(1/
+              2), {$CellContext`x, (
+            2 $CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$ + 
+            2 $CellContext`SPrimeV$$ 
+             Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/(
+           2 $CellContext`a$$), (
+            2 $CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$ + 
+            2 $CellContext`SPrimeV$$ 
+             Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$}, {$CellContext`t, \
+($CellContext`SPrimeV$$ + ($CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$)^(1/2))/$CellContext`a$$, (2 $CellContext`SPrimeV$$ + 
+            2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$}, MaxRecursion -> 3, ContourStyle -> 
+          Red], 
+         ContourPlot[(-($CellContext`x - $CellContext`SPrimeX$$ - \
+$CellContext`SPrimeV$$ $CellContext`t))/Sqrt[
+           1 - $CellContext`SPrimeV$$^2] == $CellContext`a$$ \
+((($CellContext`t - $CellContext`SPrimeV$$ ($CellContext`x - \
+$CellContext`SPrimeX$$))/Sqrt[1 - $CellContext`SPrimeV$$^2] - 2 
+              Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$))^2/
+            2), {$CellContext`x, (((-2) \
+($CellContext`SPrimeV$$^2/$CellContext`a$$) - 
+               2 $CellContext`SPrimeV$$ (
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`SPrimeV$$ (2 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2] \
+($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                   Sqrt[1 - $CellContext`SPrimeV$$^2]]/$CellContext`a$$) - \
+$CellContext`SPrimeV$$ (2 
+                Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                  Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)) - $CellContext`SPrimeX$$ 
+               Sqrt[1 - $CellContext`SPrimeV$$^2])/
+              2 + $CellContext`SPrimeV$$ (((2 $CellContext`SPrimeV$$ + 
+                 2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeV$$ 2 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2] \
+(($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$) + $CellContext`a$$ \
+$CellContext`SPrimeX$$ Sqrt[1 - $CellContext`SPrimeV$$^2]])/$CellContext`a$$)/
+               2) + $CellContext`SPrimeV$$ 2 
+              Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$))/Sqrt[
+            1 - $CellContext`SPrimeV$$^2] + $CellContext`SPrimeX$$, 
+           50}, {$CellContext`t, $CellContext`SPrimeV$$ $CellContext`x - \
+$CellContext`SPrimeV$$ ((
+             2 $CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$ + 
+             2 $CellContext`SPrimeV$$ 
+              Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$) + (2 $CellContext`SPrimeV$$ + 
+             2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$, 10}, MaxRecursion -> 3], 
+         ContourPlot[(-($CellContext`x - $CellContext`SPrimeX$$ - \
+$CellContext`SPrimeV$$ $CellContext`t))/Sqrt[
+           1 - $CellContext`SPrimeV$$^2] == (-$CellContext`a$$) \
+((($CellContext`t - $CellContext`SPrimeV$$ ($CellContext`x - \
+$CellContext`SPrimeX$$))/Sqrt[1 - $CellContext`SPrimeV$$^2] - 2 
+               Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$))^2/
+             2) + $CellContext`a$$ (($CellContext`t - $CellContext`SPrimeV$$ \
+($CellContext`x - $CellContext`SPrimeX$$))/Sqrt[1 - $CellContext`SPrimeV$$^2] - 
+             2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+               Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)) ((2 $CellContext`SPrimeV$$ + 
+              2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeV$$ (2 
+                   Sqrt[1 - $CellContext`SPrimeV$$^2] \
+(($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)) + $CellContext`a$$ \
+$CellContext`SPrimeX$$ 
+                  Sqrt[1 - $CellContext`SPrimeV$$^2]])/$CellContext`a$$) - \
+$CellContext`a$$ (((2 $CellContext`SPrimeV$$ + 
+               2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeV$$ (2 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2] \
+(($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)) + $CellContext`a$$ \
+$CellContext`SPrimeX$$ 
+                   Sqrt[1 - $CellContext`SPrimeV$$^2]])/$CellContext`a$$)^2/
+            4), {$CellContext`x, -5, (((-2) \
+($CellContext`SPrimeV$$^2/$CellContext`a$$) - 
+               2 $CellContext`SPrimeV$$ (
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`SPrimeV$$ (2 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2] \
+($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                   Sqrt[1 - $CellContext`SPrimeV$$^2]]/$CellContext`a$$) - \
+$CellContext`SPrimeV$$ (2 
+                Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                  
+                  Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)) - $CellContext`SPrimeX$$ 
+               Sqrt[1 - $CellContext`SPrimeV$$^2])/
+              2 + $CellContext`SPrimeV$$ (((2 $CellContext`SPrimeV$$ + 
+                 2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeV$$ 2 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2] \
+(($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$) + $CellContext`a$$ \
+$CellContext`SPrimeX$$ Sqrt[1 - $CellContext`SPrimeV$$^2]])/$CellContext`a$$)/
+               2) + $CellContext`SPrimeV$$ 2 
+              Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+                Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$))/Sqrt[
+            1 - $CellContext`SPrimeV$$^2] + $CellContext`SPrimeX$$}, \
+{$CellContext`t, -10, $CellContext`SPrimeV$$ $CellContext`x + \
+((-$CellContext`SPrimeV$$) $CellContext`SPrimeX$$ + 
+            2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+               Sqrt[1 - $CellContext`SPrimeV$$^2] ($CellContext`SPrimeV$$ + 
+                 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + 
+               Sqrt[$CellContext`SPrimeV$$^2 + 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] (
+                   2 $CellContext`SPrimeV$$ ($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/$CellContext`a$$))},
+           MaxRecursion -> 3]], StandardForm],
+       ImageSizeCache->{800., {398., 402.}}]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Center}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  DynamicModuleValues:>{{DownValues[$CellContext`PadNumber$$] = {HoldPattern[
+         $CellContext`PadNumber$$[
+          Pattern[$CellContext`n, 
+           Blank[]]]] :> PaddedForm[
+         N[$CellContext`n], {4, 2}, NumberPadding -> {"", "0"}, 
+         NumberSigns -> {"-", "+"}]}}, {
+    DownValues[$CellContext`UpdateDiagramRange$$] = {HoldPattern[
+         $CellContext`UpdateDiagramRange$$[]] :> ($CellContext`DiagramRange$$ = 
+         Max[2 $CellContext`a$$ (((2 $CellContext`SPrimeV$$ + 
+               2 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)^2/4), 
+           2 ((-$CellContext`SPrimeV$$) $CellContext`SPrimeX$$ + 
+            2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+               Sqrt[1 - $CellContext`SPrimeV$$^2] ($CellContext`SPrimeV$$ + 
+                 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + 
+               Sqrt[$CellContext`SPrimeV$$^2 + 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] (
+                   2 $CellContext`SPrimeV$$ ($CellContext`SPrimeV$$ + 
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/$CellContext`a$$))]; \
+$CellContext`ArrivalTime$$ = (-$CellContext`SPrimeV$$) $CellContext`SPrimeX$$ + 
+          2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+             Sqrt[1 - $CellContext`SPrimeV$$^2] ($CellContext`SPrimeV$$ + 
+               Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + 
+             Sqrt[$CellContext`SPrimeV$$^2 + 
+               Sqrt[1 - $CellContext`SPrimeV$$^2] (
+                 2 $CellContext`SPrimeV$$ ($CellContext`SPrimeV$$ + 
+                   Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`a$$ \
+$CellContext`SPrimeX$$]) + $CellContext`a$$ $CellContext`SPrimeX$$ 
+                  Sqrt[1 - $CellContext`SPrimeV$$^2])])/$CellContext`a$$); \
+$CellContext`T$$ = 
+         Solve[0 == (-$CellContext`SPrimeV$$) $CellContext`SPrimeX$$ + 
+            2 Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`SPrimeV$$ + 
+               Sqrt[1 - $CellContext`SPrimeV$$^2] ($CellContext`SPrimeV$$ + 
+                 Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`b \
+$CellContext`SPrimeX$$]) + 
+               Sqrt[$CellContext`SPrimeV$$^2 + 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] (
+                   2 $CellContext`SPrimeV$$ ($CellContext`SPrimeV$$ + 
+                    
+                    Sqrt[$CellContext`SPrimeV$$^2 + $CellContext`b \
+$CellContext`SPrimeX$$]) + $CellContext`b $CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/$CellContext`b), \
+$CellContext`b]; $CellContext`mina$$ = ReplaceAll[$CellContext`b, 
+           Part[$CellContext`T$$, 1]]; Null)}}}]], "Output",
+ CellChangeTimes->{3.840130255013339*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"ca368bc5-3a8b-4949-bf3b-cc03d22d74a6"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part2: Simulation of Time Travel Using Accelerating Tachyons", "Section",
+ CellChangeTimes->{{3.840130121300635*^9, 3.8401301517147913`*^9}, {
+   3.840130215440391*^9, 3.84013022214017*^9}, 
+   3.8401302537640915`*^9},ExpressionUUID->"9c3c8fd2-e362-44e8-bd5e-\
+4abef89d0a89"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DynamicModule", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", "\n", "        ", 
+    RowBox[{
+     RowBox[{"ArrivalTime", "          ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"ArrowSize", "            ", "=", " ", "0.03"}], ",", "\n", 
+     "        ", 
+     RowBox[{"DiagramSize", "          ", "=", " ", "800"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureColor", "          ", "=", " ", "Yellow"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureOpacity", "        ", "=", " ", "0.3"}], ",", "\n", 
+     "        ", 
+     RowBox[{"FutureShow", "           ", "=", " ", "False"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LabelMultiplier", "      ", "=", " ", "1.04"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LegendSize", "           ", "=", " ", "25"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LetterSize", "           ", "=", " ", "16"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeColor", "       ", "=", " ", "Pink"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeOpacity", "     ", "=", " ", "0.3"}], ",", "\n", 
+     "        ", 
+     RowBox[{"LightConeShow", "        ", "=", " ", "False"}], ",", "\n", 
+     "        ", "PadNumber", ",", "\n", "        ", 
+     RowBox[{"Path1V", "               ", "=", " ", "1.6"}], ",", "\n", 
+     "        ", 
+     RowBox[{"Path2V", "               ", "=", " ", "1.5"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeAngle", "          ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeRotationMatrix", " ", "=", " ", 
+      RowBox[{"RotationMatrix", "[", "0", "]"}]}], ",", "\n", "        ", 
+     RowBox[{"SPrimeT", "              ", "=", " ", "0"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeV", "              ", "=", " ", "0.7"}], ",", "\n", 
+     "        ", 
+     RowBox[{"SPrimeX", "              ", "=", " ", "1"}], ",", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{"a", "   ", "=", " ", "1.1"}], ",", "\[IndentingNewLine]", "   ", 
+     RowBox[{"a2", "=", "1.1"}], ",", "\n", "        ", 
+     RowBox[{"TachyonColor", "         ", "=", " ", "Blue"}], ",", "\n", 
+     "        ", 
+     RowBox[{"TachyonShow", "          ", "=", " ", "True"}], ",", 
+     "\[IndentingNewLine]", "   ", 
+     RowBox[{"DiagramRange", "         ", "=", " ", "4"}], ",", "\n", 
+     "        ", "UpdateDiagramRange"}], "\n", "    ", "}"}], ",", "\n", 
+   "   ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"UpdateDiagramRange", "[", "]"}], " ", ":=", " ", 
+     RowBox[{"(", "\n", "       ", 
+      RowBox[{
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], ">", "1"}], ",", 
+         RowBox[{"DiagramRange", "=", "5"}], ",", " ", 
+         RowBox[{"DiagramRange", " ", "=", " ", 
+          RowBox[{"1.2", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"2", "-", 
+               RowBox[{"2", 
+                RowBox[{"Sqrt", "[", 
+                 RowBox[{"1", "-", 
+                  RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}]}], 
+              ")"}], "/", 
+             RowBox[{"(", 
+              RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}]}]}]}], "]"}], ";",
+        "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], " ", ">", "1"}], " ",
+          ",", 
+         RowBox[{"ArrivalTime", "=", "\"\<Does not arrive\>\""}], ",", 
+         RowBox[{"ArrivalTime", " ", "=", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "SPrimeX"}], "+", 
+             RowBox[{"2", 
+              RowBox[{"Sqrt", "[", 
+               RowBox[{"1", "-", 
+                RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"1", "-", 
+                 RowBox[{"Sqrt", "[", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"2", "a2", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}], "/", "a"}]}]}], "]"}]}], ")"}], "/", 
+               RowBox[{"(", 
+                RowBox[{"a2", " ", "SPrimeV"}], ")"}]}]}]}], ")"}], "/", 
+           "SPrimeV"}]}]}], "]"}], ";"}], "\n", "    ", ")"}]}], ";", "\n", 
+    "    ", 
+    RowBox[{
+     RowBox[{"PadNumber", "[", "n_", "]"}], " ", ":=", " ", 
+     RowBox[{"PaddedForm", "[", 
+      RowBox[{
+       RowBox[{"N", "[", "n", "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", " ", "2"}], "}"}], ",", " ", 
+       RowBox[{"NumberPadding", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<\>\"", ",", " ", "\"\<0\>\""}], "}"}]}], ",", " ", 
+       RowBox[{"NumberSigns", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"\"\<-\>\"", ",", " ", "\"\<+\>\""}], "}"}]}]}], "]"}]}], 
+    ";", "\n", "    ", 
+    RowBox[{"Column", "[", "\n", "        ", 
+     RowBox[{
+      RowBox[{"{", "\n", "            ", 
+       RowBox[{
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+          "\"\<S' frame velocity: \>\"", ",", "\n", "                ", 
+           RowBox[{"Slider", "[", "\n", "                    ", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "\n", "                        ", 
+              RowBox[{"SPrimeV", ",", "\n", "                        ", 
+               RowBox[{
+                RowBox[{"(", "\n", "                            ", 
+                 RowBox[{
+                  RowBox[{"SPrimeV", " ", "=", " ", "#1"}], ";", "\n", 
+                  "                            ", 
+                  RowBox[{"SPrimeAngle", " ", "=", " ", 
+                   RowBox[{"ArcTan", "[", "SPrimeV", "]"}]}], ";", "\n", 
+                  "                            ", 
+                  RowBox[{"SPrimeRotationMatrix", " ", "=", " ", 
+                   RowBox[{"RotationMatrix", "[", "SPrimeAngle", "]"}]}], ";",
+                   "\[IndentingNewLine]", "      ", 
+                  RowBox[{"a", "=", 
+                   RowBox[{"Min", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", "SPrimeX"}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", "      ", 
+                  RowBox[{"a2", "=", 
+                   RowBox[{"Min", "[", 
+                    RowBox[{"a2", ",", 
+                    RowBox[{"a", " ", "SPrimeV", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}]}], ")"}]}]}]}], "]"}]}], ";", "\n", 
+                  "                            ", 
+                  RowBox[{"UpdateDiagramRange", "[", "]"}], ";"}], "\n", 
+                 "                        ", ")"}], " ", "&"}]}], "\n", 
+              "                    ", "]"}], ",", "\n", 
+             "                    ", 
+             RowBox[{"{", 
+              RowBox[{"0.001", ",", " ", "0.999"}], "}"}]}], "\n", 
+            "                ", "]"}], ",", "\n", "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeV", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<c\>\""}], "\n", "            ", "}"}], 
+         "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Acceleration of the first tachyon: \>\"", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Slider", "[", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "\[IndentingNewLine]", 
+              RowBox[{"a", ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"(", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"a", "=", "#1"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"a2", "=", 
+                   RowBox[{"Min", "[", 
+                    RowBox[{"a2", ",", 
+                    RowBox[{"a", " ", "SPrimeV", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}]}], ")"}]}]}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"UpdateDiagramRange", "[", "]"}], ";"}], 
+                 "\[IndentingNewLine]", ")"}], "&"}]}], "\[IndentingNewLine]",
+               "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"{", 
+               RowBox[{"0.001", ",", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", "SPrimeX"}]}], 
+               "}"}], "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "a", "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           "\"\<\!\(\*SuperscriptBox[\(s\), \(-1\)]\)\>\""}], 
+          "\[IndentingNewLine]", "}"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Acceleration of the returning tachyon: \>\"", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Slider", "[", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "\[IndentingNewLine]", 
+              RowBox[{"a2", ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{"(", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"a2", "=", "#1"}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"a", "=", 
+                   RowBox[{"Min", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", "SPrimeX"}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                  RowBox[{"UpdateDiagramRange", "[", "]"}], ";"}], 
+                 "\[IndentingNewLine]", ")"}], "&"}]}], "\[IndentingNewLine]",
+               "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"Dynamic", "[", 
+              RowBox[{"{", 
+               RowBox[{"0.001", ",", 
+                RowBox[{"a", " ", "SPrimeV", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", 
+                  RowBox[{"(", 
+                   RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}]}], ")"}]}]}]}], "}"}], "]"}]}], 
+            "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "a2", "]"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           "\"\<\!\(\*SuperscriptBox[\(s\), \(-1\)]\)\>\""}], 
+          "\[IndentingNewLine]", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"LightConeColor", ",", " ", 
+               RowBox[{"Rectangle", "[", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"ImageSize", " ", "->", " ", "LegendSize"}]}], "]"}], 
+           ",", "\n", "                ", "\"\< = Light cones \>\"", ",", 
+           "\n", "                ", 
+           RowBox[{"Checkbox", "[", 
+            RowBox[{"Dynamic", "[", "LightConeShow", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<     \>\"", ",", "\n", "                ", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"FutureColor", ",", " ", 
+               RowBox[{"Rectangle", "[", "]"}]}], "}"}], ",", " ", 
+             RowBox[{"ImageSize", " ", "->", " ", "LegendSize"}]}], "]"}], 
+           ",", "\n", "                ", "\"\< = Future regions \>\"", ",", 
+           " ", 
+           RowBox[{"Checkbox", "[", 
+            RowBox[{"Dynamic", "[", "FutureShow", "]"}], "]"}]}], "\n", 
+          "            ", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", "\n", "                ", 
+          RowBox[{
+          "\"\<S' coordinates: (t = \>\"", ",", "\n", "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeT", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<, x = \>\"", ",", "\n", 
+           "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "SPrimeX", "]"}], "]"}], ",", "\n", 
+           "                ", "\"\<)     Arrival time: \>\"", ",", "\n", 
+           "                ", 
+           RowBox[{"Dynamic", "[", 
+            RowBox[{"PadNumber", "[", "ArrivalTime", "]"}], "]"}]}], "\n", 
+          "            ", "}"}], "]"}], ",", "\n", "            ", 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{"Show", "[", 
+          RowBox[{
+           RowBox[{"Graphics", "[", "\n", "                ", 
+            RowBox[{
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], ">", "1"}], 
+                  ",", 
+                  RowBox[{"Point", "[", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"PointSize", "[", "0.01", "]"}], ",", 
+                    RowBox[{"Point", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ",", 
+                    RowBox[{"a", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}], "^", "2"}],
+                     "/", "4"}]}]}], "}"}], ",", 
+                    RowBox[{"VertexColors", "->", "Green"}]}], "]"}], ",", 
+                    RowBox[{"Point", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "SPrimeX"}], "-", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}], ")"}]}], "+", 
+                    
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}]}]}], ")"}], "/", 
+                    "SPrimeV"}]}], "}"}], ",", 
+                    RowBox[{"VertexColors", "->", "Blue"}]}], "]"}]}], 
+                   "\[IndentingNewLine]", "}"}]}], "]"}], "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{"Black", ",", "\n", "                        ", 
+                 RowBox[{"Arrowheads", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "ArrowSize"}], ",", " ", "ArrowSize"}], 
+                   "}"}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}], 
+                    ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}], "}"}], 
+                  "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "DiagramRange"}], "}"}]}], "}"}], 
+                  "]"}]}], "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<x\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    "DiagramRange", " ", "*", " ", "LabelMultiplier"}], ",", 
+                    " ", "0"}], "}"}]}], "\n", "                        ", 
+                  "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<t\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{
+                    "DiagramRange", " ", "*", " ", "LabelMultiplier"}]}], 
+                    "}"}]}], "\n", "                        ", "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"LightConeShow", ",", " ", "1", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", "Red",
+                  ",", "\n", "                        ", "Dashed", ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", "  ", "DiagramRange"}], 
+                    "}"}]}], "}"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", "  ", 
+                    "DiagramRange"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}], "}"}], "]"}]}], 
+                "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                "LightConeColor", ",", "\n", "                        ", 
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "LightConeShow", ",", " ", "LightConeOpacity", ",", " ", 
+                    "0"}], "]"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}], "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", "  ", 
+                    "DiagramRange"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "0"}], "}"}], ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", "  ", "DiagramRange"}], 
+                    "}"}]}], "}"}], "]"}]}], "\n", "                    ", 
+                "}"}], ",", "\n", "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{"Black", ",", "\n", "                        ", 
+                 RowBox[{"Arrowheads", "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "ArrowSize"}], ",", " ", "ArrowSize"}], 
+                   "}"}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}]}]}],
+                     ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}]}], 
+                   "\n", "                        ", "}"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Arrow", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", 
+                    RowBox[{"-", "DiagramRange"}]}], "}"}]}]}], ",", "\n", 
+                    "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "  ", "DiagramRange"}], "}"}]}]}]}], 
+                   "\n", "                        ", "}"}], "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<x'\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}], ")"}],
+                     " ", "*", " ", "LabelMultiplier"}]}], "\n", 
+                  "                        ", "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Text", "[", "\n", "                            ", 
+                  RowBox[{
+                   RowBox[{"Style", "[", 
+                    RowBox[{"\"\<t'\>\"", ",", " ", 
+                    RowBox[{"FontSize", " ", "->", " ", "LetterSize"}]}], 
+                    "]"}], ",", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{
+                    RowBox[{"Inverse", "[", "SPrimeRotationMatrix", "]"}], 
+                    " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "DiagramRange"}], "}"}]}]}], ")"}],
+                     " ", "*", " ", "LabelMultiplier"}]}], "\n", 
+                  "                        ", "]"}]}], "\n", 
+                "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{"LightConeShow", ",", " ", "1", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", "Red",
+                  ",", "\n", "                        ", "Dashed", ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Line", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}]}],
+                 "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                "LightConeColor", ",", "\n", "                        ", 
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "LightConeShow", ",", " ", "LightConeOpacity", ",", " ", 
+                    "0"}], "]"}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "-", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}], 
+                 ",", "\n", "                        ", 
+                 RowBox[{"Triangle", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "-", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}], ",", "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"SPrimeX", " ", "+", " ", "DiagramRange"}], ",", 
+                    " ", 
+                    RowBox[{"SPrimeT", " ", "+", " ", "DiagramRange"}]}], 
+                    "}"}]}], "\n", "                        ", "}"}], "]"}]}],
+                 "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Text", "[", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Style", "[", 
+                  RowBox[{"\"\<S\>\"", ",", " ", 
+                   RowBox[{"FontSize", " ", "->", " ", 
+                    RowBox[{"1.5", " ", "LetterSize"}]}]}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{"0.05", " ", "*", " ", "DiagramRange", " ", "*", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}]}], "\n", 
+                "                    ", "]"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Text", "[", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Style", "[", 
+                  RowBox[{"\"\<S'\>\"", ",", " ", 
+                   RowBox[{"FontSize", " ", "->", " ", 
+                    RowBox[{"1.5", " ", "LetterSize"}]}]}], "]"}], ",", "\n", 
+                 "                        ", 
+                 RowBox[{
+                  RowBox[{
+                  "0.05", " ", "*", " ", "DiagramRange", " ", "*", " ", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], ",", " ", "1"}], "}"}]}], " ", "+", 
+                  " ", 
+                  RowBox[{"{", 
+                   RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}]}]}], "\n", 
+                "                    ", "]"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"{", "\n", "                        ", 
+                RowBox[{
+                 RowBox[{"Opacity", "[", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                   "FutureShow", ",", " ", "FutureOpacity", ",", " ", "0"}], 
+                   "]"}], "]"}], ",", "\n", "                        ", 
+                 "FutureColor", ",", "\n", "                        ", 
+                 RowBox[{"Rectangle", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}], 
+                   ",", " ", 
+                   RowBox[{"{", 
+                    RowBox[{"DiagramRange", ",", " ", "DiagramRange"}], 
+                    "}"}]}], "]"}], ",", "\n", "                        ", 
+                 RowBox[{"Polygon", "[", 
+                  RowBox[{"{", "\n", "                            ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "0"}], "}"}]}]}],
+                     ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "0"}], "}"}]}]}], ",", 
+                    "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", " ", 
+                    RowBox[{"DiagramRange", ",", " ", "DiagramRange"}], 
+                    "}"}]}]}], ",", "\n", "                            ", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "+",
+                     " ", 
+                    RowBox[{"SPrimeRotationMatrix", " ", ".", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"-", "DiagramRange"}], ",", " ", "DiagramRange"}],
+                     "}"}]}]}]}], "\n", "                        ", "}"}], 
+                  "]"}]}], "\n", "                    ", "}"}], ",", "\n", 
+               "                    ", 
+               RowBox[{"Locator", "[", "\n", "                        ", 
+                RowBox[{
+                "Dynamic", "[", "\n", "                            ", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], ",", "\n",
+                   "                            ", 
+                  RowBox[{
+                   RowBox[{"(", "\n", "                                ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"SPrimeX", ",", " ", "SPrimeT"}], "}"}], " ", "=",
+                     " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", " ", "0"}], "}"}]}], 
+                    ";", "\[IndentingNewLine]", "      ", 
+                    RowBox[{"a", "=", 
+                    RowBox[{"Min", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", "SPrimeX"}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", "      ", 
+                    RowBox[{"a2", "=", 
+                    RowBox[{"Min", "[", 
+                    RowBox[{"a2", ",", 
+                    RowBox[{"a", " ", "SPrimeV", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", "SPrimeV"}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}]}], ")"}]}]}]}], "]"}]}], ";", "\n", 
+                    "                                ", 
+                    RowBox[{"Path1V", " ", "=", " ", 
+                    RowBox[{"Quiet", "[", 
+                    RowBox[{"SPrimeX", " ", "/", " ", "SPrimeT"}], "]"}]}], 
+                    ";", "\n", "                                ", 
+                    RowBox[{"UpdateDiagramRange", "[", "]"}], ";"}], "\n", 
+                    "                            ", ")"}], " ", "&"}]}], "\n",
+                  "                        ", "]"}], "\n", 
+                "                    ", "]"}]}], "\n", "                ", 
+              "}"}], ",", "\n", "                ", 
+             RowBox[{"ImageSize", " ", "->", " ", 
+              RowBox[{"{", 
+               RowBox[{"DiagramSize", ",", " ", "DiagramSize"}], "}"}]}]}], 
+            "\n", "            ", "]"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], ">", "1"}], ",", 
+             "\"\<The tachyon never meets second ship\>\"", ",", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{"(*", 
+               RowBox[{
+               "First", " ", "half", " ", "of", " ", "first", " ", "path"}], 
+               "*)"}], "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"ContourPlot", "[", 
+                RowBox[{
+                 RowBox[{"t", "==", 
+                  RowBox[{"a", " ", 
+                   RowBox[{
+                    RowBox[{"x", "^", "2"}], "/", "2"}]}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"x", ",", "0", ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"t", ",", "0", ",", "15"}], "}"}], ",", 
+                 RowBox[{"MaxRecursion", "->", "3"}], ",", 
+                 RowBox[{"ContourStyle", "->", "Red"}]}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"(*", 
+                RowBox[{
+                "Second", " ", "half", " ", "of", " ", "first", " ", "path"}],
+                 "*)"}], "\[IndentingNewLine]", 
+               RowBox[{"ContourPlot", "[", 
+                RowBox[{
+                 RowBox[{"t", "==", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", "a"}], " ", 
+                    RowBox[{
+                    RowBox[{"x", "^", "2"}], "/", "2"}]}], "+", 
+                   RowBox[{"a", " ", "x", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}]}], "-", 
+                   RowBox[{"a", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}], "^", "2"}],
+                     "/", "4"}]}]}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"x", ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], "]"}]}], 
+                    ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"t", ",", "0", ",", "15"}], "}"}], ",", 
+                 RowBox[{"MaxRecursion", "->", "3"}], ",", 
+                 RowBox[{"ContourStyle", "->", "Red"}]}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"(*", 
+                RowBox[{
+                "First", " ", "half", " ", "of", " ", "return", " ", "path"}],
+                 "*)"}], "\[IndentingNewLine]", 
+               RowBox[{"ContourPlot", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"t", "-", 
+                    RowBox[{"SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX"}], ")"}]}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", 
+                   RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}]}], "==", 
+                  RowBox[{"a2", " ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX", "-", 
+                    RowBox[{"SPrimeV", " ", "t"}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], ")"}], "^", 
+                    "2"}], "/", "2"}]}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"x", ",", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], "+", 
+                    RowBox[{"SPrimeV", " ", "a2", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], ")"}], "^", 
+                    "2"}], "/", "8"}]}], "+", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "a"}], " ", "SPrimeV", " ", "SPrimeX"}], "+",
+                     "2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}]}], ")"}], "/", 
+                    
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", 
+                    "SPrimeX"}], ",", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], "}"}], ",", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"{", 
+                  RowBox[{"t", ",", 
+                   RowBox[{"-", "25"}], ",", 
+                   RowBox[{"Max", "[", 
+                    RowBox[{"0.5", ",", 
+                    RowBox[{"Abs", "[", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", " ", "x"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "SPrimeX"}], "-", 
+                    RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}], ")"}]}], "+", 
+                    
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}]}]}], ")"}], "/", 
+                    "SPrimeV"}], ")"}]}]}], "]"}]}], "]"}]}], "}"}], ",", 
+                 RowBox[{"MaxRecursion", "->", "3"}]}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"(*", 
+                RowBox[{
+                "Second", " ", "half", " ", "of", " ", "return", " ", 
+                 "path"}], "*)"}], "\[IndentingNewLine]", 
+               RowBox[{"ContourPlot", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"t", "-", 
+                    RowBox[{"SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX"}], ")"}]}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", 
+                   RowBox[{
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}]}], "==", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"-", "a2"}], " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX", "-", 
+                    RowBox[{"SPrimeV", " ", "t"}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], ")"}], "^", 
+                    "2"}], "/", "2"}]}], "+", 
+                   RowBox[{"a2", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"x", "-", "SPrimeX", "-", 
+                    RowBox[{"SPrimeV", " ", "t"}]}], ")"}], "/", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], ")"}], 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], ")"}]}], "-", 
+                   RowBox[{"a2", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], ")"}], "^", 
+                    "2"}], "/", "4"}]}]}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"x", ",", "0", ",", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "+", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], "+", 
+                    RowBox[{"SPrimeV", " ", "a2", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "2"}], "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a2", " ", "SPrimeV", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}], "-", "2", 
+                    "+", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}]}], ")"}], "+", 
+                    RowBox[{"SPrimeX", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}]}], ")"}]}]}], 
+                    " ", "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a2", " ", "SPrimeV"}], ")"}]}], ")"}], "^", 
+                    "2"}], "/", "8"}]}], "+", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}], 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"-", "a"}], " ", "SPrimeV", " ", "SPrimeX"}], "+",
+                     "2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], ")"}]}]}]}], ")"}], "/", 
+                    
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"SPrimeV", "^", "2"}]}], "]"}]}], "+", 
+                    "SPrimeX"}]}], "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"t", ",", 
+                   RowBox[{
+                    RowBox[{"SPrimeV", " ", "x"}], "+", 
+                    RowBox[{"a", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}], "^", "2"}],
+                     "/", "4"}]}], "-", 
+                    RowBox[{"SPrimeV", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"2", "-", 
+                    RowBox[{"2", 
+                    RowBox[{"Sqrt", "[", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"a", " ", "SPrimeV", " ", "SPrimeX"}]}], 
+                    "]"}]}]}], ")"}], "/", 
+                    RowBox[{"(", 
+                    RowBox[{"a", " ", "SPrimeV"}], ")"}]}], ")"}]}]}], ",", 
+                   "25"}], "}"}], ",", 
+                 RowBox[{"MaxRecursion", "->", "3"}]}], "]"}]}], "}"}]}], 
+            "]"}]}], "\[IndentingNewLine]", "]"}], "]"}]}], "\n", "        ", 
+       "}"}], ",", "\n", "        ", 
+      RowBox[{"Alignment", " ", "->", " ", "Center"}]}], "\n", "    ", 
+     "]"}]}]}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{
+  3.8382276136692963`*^9, {3.838227650882244*^9, 3.8382277526022778`*^9}, {
+   3.83822798095453*^9, 3.838228051334743*^9}, 3.838228103669798*^9, {
+   3.838228146635623*^9, 3.838228165520932*^9}, {3.838228223264783*^9, 
+   3.83822828568363*^9}, {3.83822838154632*^9, 3.83822838815091*^9}, {
+   3.83828220326899*^9, 3.8382822266833487`*^9}, {3.8382834930205173`*^9, 
+   3.8382835124290657`*^9}, {3.838283551272037*^9, 3.838283582398628*^9}, {
+   3.8382836323888474`*^9, 3.838283687697137*^9}, {3.838283727762488*^9, 
+   3.838283778971593*^9}, {3.8382838101194477`*^9, 3.838283923923894*^9}, {
+   3.8382841659687443`*^9, 3.838284189560299*^9}, {3.838284280960812*^9, 
+   3.838284320262641*^9}, {3.838284376317951*^9, 3.838284476287928*^9}, {
+   3.838284593588214*^9, 3.83828462646041*^9}, {3.8383023846042347`*^9, 
+   3.838302504558239*^9}, {3.838303720744472*^9, 3.8383038792678537`*^9}, {
+   3.838303938660397*^9, 3.838304120434347*^9}, {3.838304210405323*^9, 
+   3.838304298794063*^9}, {3.83830517446064*^9, 3.838305181648711*^9}, {
+   3.838305224061734*^9, 3.8383054430133553`*^9}, {3.838305484229681*^9, 
+   3.838305485171894*^9}, {3.8383063785067463`*^9, 3.8383064377792263`*^9}, {
+   3.838306467826667*^9, 3.8383066465573463`*^9}, {3.838306996427243*^9, 
+   3.8383069985865717`*^9}, {3.838891269814764*^9, 3.838891538479849*^9}, {
+   3.838891580625391*^9, 3.8388916683360043`*^9}, {3.838891884874172*^9, 
+   3.8388921071905813`*^9}, {3.838892143190291*^9, 3.838892176706087*^9}, {
+   3.838892225577808*^9, 3.838892257992391*^9}, 3.83889229071327*^9, {
+   3.838893188497431*^9, 3.8388932275038147`*^9}, {3.838893763505748*^9, 
+   3.838893771551197*^9}, {3.8388938229577103`*^9, 3.8388938884496193`*^9}, {
+   3.838893953238832*^9, 3.83889401031954*^9}, {3.8388940701806498`*^9, 
+   3.838894071669744*^9}, {3.838897080572071*^9, 3.838897109334313*^9}, 
+   3.838897145670257*^9, {3.838898081865428*^9, 3.8388982537369757`*^9}, {
+   3.8388984333127403`*^9, 3.8388984345436983`*^9}, {3.838898529995843*^9, 
+   3.838898634542961*^9}, {3.838898671190748*^9, 3.8388987125396767`*^9}, {
+   3.838898780256618*^9, 3.838898791096911*^9}, {3.8389028104036922`*^9, 
+   3.838902811311318*^9}, {3.838902871925727*^9, 3.8389028776294928`*^9}, {
+   3.838906962992852*^9, 3.838907002431707*^9}, {3.838907044525691*^9, 
+   3.838907097114538*^9}, {3.838907653393552*^9, 3.8389076818074408`*^9}, {
+   3.8389077327654333`*^9, 3.838907750302628*^9}, {3.838907795436886*^9, 
+   3.838907797226713*^9}, {3.838909405097106*^9, 3.838909409937971*^9}, {
+   3.838912970260803*^9, 3.838912980944477*^9}, {3.83891312485392*^9, 
+   3.838913147092206*^9}, {3.838913206114045*^9, 3.838913217144133*^9}, {
+   3.8389794405754023`*^9, 3.838979460284319*^9}, 3.83897950456638*^9, {
+   3.839496831005946*^9, 3.839496922694777*^9}, {3.8394970665800257`*^9, 
+   3.8394971580955477`*^9}, 3.839497547701902*^9, {3.839497607466906*^9, 
+   3.839497621449829*^9}, {3.839497658312893*^9, 3.839497698022538*^9}, {
+   3.83949777560861*^9, 3.839497785669559*^9}, {3.839497830615315*^9, 
+   3.8394978877091227`*^9}, {3.839497926386115*^9, 3.8394979299745283`*^9}, {
+   3.839497965836121*^9, 3.839498031852673*^9}, {3.839498078425848*^9, 
+   3.839498082479167*^9}, {3.83949908055722*^9, 3.839499107378563*^9}, {
+   3.839499219893949*^9, 3.8394992309490128`*^9}, {3.839501386994093*^9, 
+   3.839501394961862*^9}, {3.839509473920557*^9, 3.8395095309737177`*^9}, {
+   3.839509567894917*^9, 3.8395095772231417`*^9}, {3.839509627899139*^9, 
+   3.839509629802025*^9}, {3.839509760544549*^9, 3.839509760867957*^9}, {
+   3.8395097980512953`*^9, 3.839509801606751*^9}, {3.8395099662605352`*^9, 
+   3.8395100136835833`*^9}, {3.83951007522381*^9, 3.83951007684678*^9}, {
+   3.8395101111547813`*^9, 3.8395101149454603`*^9}, {3.839510180745616*^9, 
+   3.839510198369336*^9}, {3.8395103124370747`*^9, 3.8395103161297493`*^9}, 
+   3.839510348580003*^9, {3.839510382215886*^9, 3.839510395977188*^9}, {
+   3.839510427165943*^9, 3.839510435645059*^9}, {3.839513020668828*^9, 
+   3.839513072895112*^9}, {3.839513206077889*^9, 3.839513242195448*^9}, {
+   3.839513273532777*^9, 3.839513274217689*^9}, {3.8395177183012333`*^9, 
+   3.839517719443235*^9}, {3.839530472533794*^9, 3.8395305328826714`*^9}, {
+   3.8395305876162357`*^9, 3.839530613868503*^9}, {3.8395306468477297`*^9, 
+   3.839530648214177*^9}, {3.839531006037372*^9, 3.8395310326694613`*^9}, {
+   3.839531118472108*^9, 3.839531121958544*^9}, {3.839531158222571*^9, 
+   3.839531234629034*^9}, {3.83967730887446*^9, 3.839677321204109*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"08f7a526-2397-47ba-b529-a2fa516bece5"],
+
+Cell[BoxData[
+ DynamicModuleBox[{$CellContext`ArrivalTime$$ = 0, $CellContext`ArrowSize$$ = 
+  0.03, $CellContext`DiagramSize$$ = 800, $CellContext`FutureColor$$ = 
+  RGBColor[1, 1, 0], $CellContext`FutureOpacity$$ = 
+  0.3, $CellContext`FutureShow$$ = False, $CellContext`LabelMultiplier$$ = 
+  1.04, $CellContext`LegendSize$$ = 25, $CellContext`LetterSize$$ = 
+  16, $CellContext`LightConeColor$$ = RGBColor[
+  1, 0.5, 0.5], $CellContext`LightConeOpacity$$ = 
+  0.3, $CellContext`LightConeShow$$ = 
+  False, $CellContext`PadNumber$$, $CellContext`Path1V$$ = 
+  1.6, $CellContext`Path2V$$ = 1.5, $CellContext`SPrimeAngle$$ = 
+  0, $CellContext`SPrimeRotationMatrix$$ = {{1, 0}, {0, 
+  1}}, $CellContext`SPrimeT$$ = 0, $CellContext`SPrimeV$$ = 
+  0.7, $CellContext`SPrimeX$$ = 1, $CellContext`a$$ = 1.1, $CellContext`a2$$ =
+   1.1, $CellContext`TachyonColor$$ = RGBColor[
+  0, 0, 1], $CellContext`TachyonShow$$ = True, $CellContext`DiagramRange$$ = 
+  4, $CellContext`UpdateDiagramRange$$}, 
+  TagBox[GridBox[{
+     {
+      TemplateBox[{"\"S' frame velocity: \"", 
+        SliderBox[
+         Dynamic[$CellContext`SPrimeV$$, ($CellContext`SPrimeV$$ = #; \
+$CellContext`SPrimeAngle$$ = 
+           ArcTan[$CellContext`SPrimeV$$]; \
+$CellContext`SPrimeRotationMatrix$$ = 
+           RotationMatrix[$CellContext`SPrimeAngle$$]; $CellContext`a$$ = 
+           Min[$CellContext`a$$, (
+              2 - $CellContext`SPrimeV$$)/$CellContext`SPrimeX$$]; \
+$CellContext`a2$$ = 
+           Min[$CellContext`a2$$, $CellContext`a$$ $CellContext`SPrimeV$$ ((
+               2 - $CellContext`SPrimeV$$)/(2 
+              Sqrt[1 - $CellContext`SPrimeV$$^2] (1 - Sqrt[
+               1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])))]; $CellContext`UpdateDiagramRange$$[]; Null)& ], {
+         0.001, 0.999}], 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeV$$], StandardForm]], 
+        "\"c\""},
+       "RowDefault"]},
+     {
+      TemplateBox[{"\"Acceleration of the first tachyon: \"", 
+        SliderBox[
+         Dynamic[$CellContext`a$$, ($CellContext`a$$ = #; $CellContext`a2$$ = 
+           Min[$CellContext`a2$$, $CellContext`a$$ $CellContext`SPrimeV$$ ((
+               2 - $CellContext`SPrimeV$$)/(2 
+              Sqrt[1 - $CellContext`SPrimeV$$^2] (1 - Sqrt[
+               1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])))]; $CellContext`UpdateDiagramRange$$[]; Null)& ], 
+         Dynamic[{
+          0.001, (2 - $CellContext`SPrimeV$$)/$CellContext`SPrimeX$$}]], 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`a$$], StandardForm]], 
+        "\"\\!\\(\\*SuperscriptBox[\\(s\\), \\(-1\\)]\\)\""},
+       "RowDefault"]},
+     {
+      TemplateBox[{"\"Acceleration of the returning tachyon: \"", 
+        SliderBox[
+         Dynamic[$CellContext`a2$$, ($CellContext`a2$$ = #; $CellContext`a$$ = 
+           Min[$CellContext`a$$, (
+              2 - $CellContext`SPrimeV$$)/$CellContext`SPrimeX$$]; \
+$CellContext`UpdateDiagramRange$$[]; Null)& ], 
+         Dynamic[{
+          0.001, $CellContext`a$$ $CellContext`SPrimeV$$ ((
+             2 - $CellContext`SPrimeV$$)/(2 
+            Sqrt[1 - $CellContext`SPrimeV$$^2] (1 - Sqrt[
+             1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])))}]], 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`a2$$], StandardForm]], 
+        "\"\\!\\(\\*SuperscriptBox[\\(s\\), \\(-1\\)]\\)\""},
+       "RowDefault"]},
+     {
+      TemplateBox[{
+        GraphicsBox[{
+          RGBColor[1, 0.5, 0.5], 
+          RectangleBox[{0, 0}]}, ImageSize -> 25], "\" = Light cones \"", 
+        CheckboxBox[
+         Dynamic[$CellContext`LightConeShow$$]], "\"     \"", 
+        GraphicsBox[{
+          RGBColor[1, 1, 0], 
+          RectangleBox[{0, 0}]}, ImageSize -> 25], "\" = Future regions \"", 
+        CheckboxBox[
+         Dynamic[$CellContext`FutureShow$$]]},
+       "RowDefault"]},
+     {
+      TemplateBox[{"\"S' coordinates: (t = \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeT$$], StandardForm]], 
+        "\", x = \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`SPrimeX$$], StandardForm]], 
+        "\")     Arrival time: \"", 
+        DynamicBox[
+         ToBoxes[
+          $CellContext`PadNumber$$[$CellContext`ArrivalTime$$], 
+          StandardForm]]},
+       "RowDefault"]},
+     {
+      DynamicBox[ToBoxes[
+        Show[
+         Graphics[{{
+            
+            If[$CellContext`a$$ $CellContext`SPrimeV$$ $CellContext`SPrimeX$$ > 
+             1, 
+             Point[{0, 0}], {
+              PointSize[0.01], 
+              
+              Point[{(2 - 2 
+                 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$), \
+$CellContext`a$$ (((2 - 2 
+                    Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$))^2/4)}, 
+               VertexColors -> Green], 
+              
+              Point[{0, (-$CellContext`SPrimeX$$ - 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] ((-2 + 
+                   2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ \
+($CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2))) + \
+$CellContext`SPrimeX$$ Sqrt[
+                    1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$)))/$CellContext`SPrimeV$$}, VertexColors -> Blue]}]}, {
+           Black, 
+            Arrowheads[{-$CellContext`ArrowSize$$, $CellContext`ArrowSize$$}], 
+            
+            Arrow[{{-$CellContext`DiagramRange$$, 
+               0}, {$CellContext`DiagramRange$$, 0}}], 
+            
+            Arrow[{{0, -$CellContext`DiagramRange$$}, {
+              0, $CellContext`DiagramRange$$}}]}, {
+            Text[
+             Style[
+             "x", FontSize -> $CellContext`LetterSize$$], \
+{$CellContext`DiagramRange$$ $CellContext`LabelMultiplier$$, 0}], 
+            Text[
+             Style["t", FontSize -> $CellContext`LetterSize$$], {
+             0, $CellContext`DiagramRange$$ \
+$CellContext`LabelMultiplier$$}]}, {
+            Opacity[
+             If[$CellContext`LightConeShow$$, 1, 0]], Red, Dashed, 
+            
+            Line[{{-$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}, {$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}}], 
+            
+            Line[{{-$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}, {$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}}]}, {$CellContext`LightConeColor$$, 
+            Opacity[
+             
+             If[$CellContext`LightConeShow$$, $CellContext`LightConeOpacity$$,
+               0]], 
+            
+            Triangle[{{-$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}, {0, 
+              0}, {$CellContext`DiagramRange$$, \
+-$CellContext`DiagramRange$$}}], 
+            
+            Triangle[{{-$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}, {0, 
+              0}, {$CellContext`DiagramRange$$, \
+$CellContext`DiagramRange$$}}]}, {Black, 
+            Arrowheads[{-$CellContext`ArrowSize$$, $CellContext`ArrowSize$$}], 
+            
+            Arrow[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 0}]}], 
+            Arrow[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, -$CellContext`DiagramRange$$}], {$CellContext`SPrimeX$$, \
+$CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, $CellContext`DiagramRange$$}]}]}, {
+            Text[
+             Style[
+             "x'", FontSize -> $CellContext`LetterSize$$], \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 0}]) $CellContext`LabelMultiplier$$], 
+            Text[
+             Style[
+             "t'", FontSize -> $CellContext`LetterSize$$], \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + Dot[
+                Inverse[$CellContext`SPrimeRotationMatrix$$], {
+                0, $CellContext`DiagramRange$$}]) \
+$CellContext`LabelMultiplier$$]}, {
+            Opacity[
+             If[$CellContext`LightConeShow$$, 1, 0]], Red, Dashed, 
+            
+            Line[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ - $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$ + $CellContext`DiagramRange$$, $CellContext`SPrimeT$$ + \
+$CellContext`DiagramRange$$}}], 
+            
+            Line[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ + $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$ + $CellContext`DiagramRange$$, $CellContext`SPrimeT$$ - \
+$CellContext`DiagramRange$$}}]}, {$CellContext`LightConeColor$$, 
+            Opacity[
+             
+             If[$CellContext`LightConeShow$$, $CellContext`LightConeOpacity$$,
+               0]], 
+            
+            Triangle[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ - $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, {$CellContext`SPrimeX$$ + \
+$CellContext`DiagramRange$$, $CellContext`SPrimeT$$ - \
+$CellContext`DiagramRange$$}}], 
+            
+            Triangle[{{$CellContext`SPrimeX$$ - $CellContext`DiagramRange$$, \
+$CellContext`SPrimeT$$ + $CellContext`DiagramRange$$}, \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, {$CellContext`SPrimeX$$ + \
+$CellContext`DiagramRange$$, $CellContext`SPrimeT$$ + \
+$CellContext`DiagramRange$$}}]}, 
+           Text[
+            Style["S", FontSize -> 1.5 $CellContext`LetterSize$$], 
+            0.05 $CellContext`DiagramRange$$ {-1, 1}], 
+           Text[
+            Style["S'", FontSize -> 1.5 $CellContext`LetterSize$$], 
+            0.05 $CellContext`DiagramRange$$ {-1, 
+              1} + {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}], {
+            Opacity[
+             
+             If[$CellContext`FutureShow$$, $CellContext`FutureOpacity$$, 
+              0]], $CellContext`FutureColor$$, 
+            
+            Rectangle[{-$CellContext`DiagramRange$$, 
+              0}, {$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}], 
+            
+            Polygon[{{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, 
+                 0}], {$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}], \
+{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} + 
+              Dot[$CellContext`SPrimeRotationMatrix$$, \
+{-$CellContext`DiagramRange$$, $CellContext`DiagramRange$$}]}]}, 
+           Locator[
+            
+            Dynamic[{$CellContext`SPrimeX$$, $CellContext`SPrimeT$$}, \
+({$CellContext`SPrimeX$$, $CellContext`SPrimeT$$} = {
+                Part[#, 1], 0}; $CellContext`a$$ = 
+              Min[$CellContext`a$$, (
+                 2 - $CellContext`SPrimeV$$)/$CellContext`SPrimeX$$]; \
+$CellContext`a2$$ = 
+              Min[$CellContext`a2$$, $CellContext`a$$ $CellContext`SPrimeV$$ \
+((2 - $CellContext`SPrimeV$$)/(2 
+                 Sqrt[1 - $CellContext`SPrimeV$$^2] (1 - Sqrt[
+                  1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])))]; $CellContext`Path1V$$ = 
+              Quiet[$CellContext`SPrimeX$$/$CellContext`SPrimeT$$]; \
+$CellContext`UpdateDiagramRange$$[]; Null)& ]]}, 
+          ImageSize -> {$CellContext`DiagramSize$$, \
+$CellContext`DiagramSize$$}], 
+         If[$CellContext`a$$ $CellContext`SPrimeV$$ $CellContext`SPrimeX$$ > 
+          1, "The tachyon never meets second ship", {
+           
+           ContourPlot[$CellContext`t == $CellContext`a$$ ($CellContext`x^2/
+              2), {$CellContext`x, 
+             0, (1 - Sqrt[
+              1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)}, \
+{$CellContext`t, 0, 15}, MaxRecursion -> 3, ContourStyle -> Red], 
+           
+           ContourPlot[$CellContext`t == (-$CellContext`a$$) \
+($CellContext`x^2/
+               2) + $CellContext`a$$ $CellContext`x ((2 - 2 
+                Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) - \
+$CellContext`a$$ (((2 - 2 
+                 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$))^2/
+              4), {$CellContext`x, (1 - Sqrt[
+              1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$), (2 - 2 
+              Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)}, \
+{$CellContext`t, 0, 15}, MaxRecursion -> 3, ContourStyle -> Red], 
+           
+           ContourPlot[($CellContext`t - $CellContext`SPrimeV$$ \
+($CellContext`x - $CellContext`SPrimeX$$))/Sqrt[1 - $CellContext`SPrimeV$$^2] + 
+             Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2)) == \
+$CellContext`a2$$ ((($CellContext`x - $CellContext`SPrimeX$$ - \
+$CellContext`SPrimeV$$ $CellContext`t)/Sqrt[1 - $CellContext`SPrimeV$$^2])^2/
+              2), {$CellContext`x, ((-1 + 
+                 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$) + $CellContext`SPrimeV$$ $CellContext`a2$$ (((-2 + 
+                    2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ Sqrt[
+                    1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$))^2/8) + $CellContext`SPrimeV$$ 
+                Sqrt[1 - $CellContext`SPrimeV$$^2] (((-$CellContext`a$$) \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ + 2 - 2 
+                  Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2)))/Sqrt[
+              1 - $CellContext`SPrimeV$$^2] + $CellContext`SPrimeX$$, (2 - 2 
+              Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)}, \
+{$CellContext`t, -25, 
+             Max[0.5, 
+              
+              Abs[$CellContext`SPrimeV$$ $CellContext`x + 
+               2 ((-$CellContext`SPrimeX$$ - 
+                  Sqrt[1 - $CellContext`SPrimeV$$^2] ((-2 + 
+                    2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ \
+($CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2))) + \
+$CellContext`SPrimeX$$ Sqrt[
+                    1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$)))/$CellContext`SPrimeV$$)]]}, MaxRecursion -> 3], 
+           
+           ContourPlot[($CellContext`t - $CellContext`SPrimeV$$ \
+($CellContext`x - $CellContext`SPrimeX$$))/Sqrt[1 - $CellContext`SPrimeV$$^2] + 
+             Sqrt[1 - $CellContext`SPrimeV$$^2] (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2)) == \
+(-$CellContext`a2$$) ((($CellContext`x - $CellContext`SPrimeX$$ - \
+$CellContext`SPrimeV$$ $CellContext`t)/Sqrt[1 - $CellContext`SPrimeV$$^2])^2/
+               
+               2) + $CellContext`a2$$ (($CellContext`x - \
+$CellContext`SPrimeX$$ - $CellContext`SPrimeV$$ $CellContext`t)/Sqrt[
+               1 - $CellContext`SPrimeV$$^2]) ((-2 + 
+                2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$)) - $CellContext`a2$$ (((-2 + 
+                 2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$))^2/4), {$CellContext`x, 
+             0, ((-1 + Sqrt[
+                  1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ 
+                    Sqrt[1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$) + $CellContext`SPrimeV$$ $CellContext`a2$$ (((-2 + 
+                    2 Sqrt[1 - $CellContext`a2$$ $CellContext`SPrimeV$$ ((-
+                    Sqrt[1 - $CellContext`SPrimeV$$^2]) (($CellContext`a$$ \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ - 2 + 
+                    2 Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)) + \
+$CellContext`SPrimeX$$ Sqrt[
+                    1 - $CellContext`SPrimeV$$^2])])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$))^2/8) + $CellContext`SPrimeV$$ 
+                Sqrt[1 - $CellContext`SPrimeV$$^2] (((-$CellContext`a$$) \
+$CellContext`SPrimeV$$ $CellContext`SPrimeX$$ + 2 - 2 
+                  Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$^2)))/Sqrt[
+              1 - $CellContext`SPrimeV$$^2] + $CellContext`SPrimeX$$}, \
+{$CellContext`t, $CellContext`SPrimeV$$ $CellContext`x + $CellContext`a$$ (((
+                  2 - 2 Sqrt[
+                   1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$))^2/
+               4) - $CellContext`SPrimeV$$ ((2 - 2 
+               Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$)), 25}, 
+            MaxRecursion -> 3]}]], StandardForm],
+       ImageSizeCache->{800., {398., 402.}}]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Center}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  DynamicModuleValues:>{{DownValues[$CellContext`PadNumber$$] = {HoldPattern[
+         $CellContext`PadNumber$$[
+          Pattern[$CellContext`n, 
+           Blank[]]]] :> PaddedForm[
+         N[$CellContext`n], {4, 2}, NumberPadding -> {"", "0"}, 
+         NumberSigns -> {"-", "+"}]}}, {
+    DownValues[$CellContext`UpdateDiagramRange$$] = {HoldPattern[
+         $CellContext`UpdateDiagramRange$$[]] :> (
+        If[$CellContext`a$$ $CellContext`SPrimeV$$ $CellContext`SPrimeX$$ > 
+          1, $CellContext`DiagramRange$$ = 5, $CellContext`DiagramRange$$ = 
+          1.2 ((2 - 2 
+             Sqrt[1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/($CellContext`a$$ $CellContext`SPrimeV$$))]; 
+        If[$CellContext`a$$ $CellContext`SPrimeV$$ $CellContext`SPrimeX$$ > 
+          1, $CellContext`ArrivalTime$$ = 
+          "Does not arrive", $CellContext`ArrivalTime$$ = \
+(-$CellContext`SPrimeX$$ + 
+            2 Sqrt[1 - $CellContext`SPrimeV$$^2] ((1 - Sqrt[
+               1 - 2 $CellContext`a2$$ 
+                Sqrt[1 - $CellContext`SPrimeV$$^2] ((1 - Sqrt[
+                  1 - $CellContext`a$$ $CellContext`SPrimeV$$ \
+$CellContext`SPrimeX$$])/$CellContext`a$$)])/($CellContext`a2$$ \
+$CellContext`SPrimeV$$)))/$CellContext`SPrimeV$$]; Null)}}}]], "Output",
+ CellChangeTimes->{3.840130272142254*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"29229530-12b3-46ed-a15d-6db9595cc1fc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1033.2, 796.1999999999999},
+WindowMargins->{{Automatic, -6.599999999999909}, {Automatic, 0}},
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (June 19, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c113442d-1c63-4acf-990c-3225124e39f7"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 200, 4, 160, "Title",ExpressionUUID->"5f33a557-d283-4187-a624-10aa79d3c60b"],
+Cell[CellGroupData[{
+Cell[805, 30, 155, 3, 54, "Subsection",ExpressionUUID->"b601b100-65a8-40d1-9bd1-9444bc8000c7"],
+Cell[963, 35, 230, 7, 58, "Text",ExpressionUUID->"5dfe06ba-ecce-4a43-87e3-93cf8562e375"],
+Cell[1196, 44, 228, 8, 81, "Text",ExpressionUUID->"916dfc89-7837-4507-81c1-f2f7738e7933"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1461, 57, 219, 5, 67, "Section",ExpressionUUID->"aa618ddd-17d8-420d-9d7b-f02ea44bd575"],
+Cell[CellGroupData[{
+Cell[1705, 66, 68488, 1474, 5168, "Input",ExpressionUUID->"100c9c05-3f57-4c38-9e1a-baaf1e4c0005"],
+Cell[70196, 1542, 22411, 435, 912, "Output",ExpressionUUID->"ca368bc5-3a8b-4949-bf3b-cc03d22d74a6"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[92656, 1983, 281, 4, 67, "Section",ExpressionUUID->"9c3c8fd2-e362-44e8-bd5e-4abef89d0a89"],
+Cell[CellGroupData[{
+Cell[92962, 1991, 71333, 1523, 5306, "Input",ExpressionUUID->"08f7a526-2397-47ba-b529-a2fa516bece5"],
+Cell[164298, 3516, 22007, 431, 959, "Output",ExpressionUUID->"29229530-12b3-46ed-a15d-6db9595cc1fc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
